@@ -2,10 +2,12 @@ from rest_framework import serializers
 from .models import Bucketlist
 
 class BucketlistSerializer(serializers.ModelSerializer):
-    """Serializer to map the Model instance into JSON format."""
+    """Serializer to map the model instance into json format."""
+
+    owner = serializers.ReadOnlyField(source='owner.username') # ADD THIS LINE
 
     class Meta:
-        """Meta class to map serializer's fields with the model fields."""
+        """Map this serializer to a model and their fields."""
         model = Bucketlist
-        fields = ('id', 'name', 'date_created', 'date_modified')
+        fields = ('id', 'name', 'owner', 'date_created', 'date_modified') # ADD 'owner'
         read_only_fields = ('date_created', 'date_modified')
